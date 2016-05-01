@@ -11,6 +11,14 @@ class SV_SVGTemplate_Helpers
         {
             throw new Exception('$templateName is required');
         }
+
+        $parts = pathinfo($templateName);
+        if (($parts['extension'] != 'svg' && $parts['extension'] != '') || ($parts['dirname'] != '' && $parts['dirname'] != '.'))
+        {
+            return $templateName;
+        }
+        $templateName = $parts['filename'];
+
         $templateName = urlencode($templateName);
 
         if (self::$useFriendlyUrls === null)
@@ -28,6 +36,6 @@ class SV_SVGTemplate_Helpers
             $url = "/svg.php?svg={$templateName}&style={$visitorStyle['style_id']}&language={$visitorLanguage['language_id']}&dir={$visitorLanguage['text_direction']}&d={$visitorStyle['last_modified_date']}";
         }
 
-        return self::boardUrl . $url;
+        return self::$boardUrl . $url;
     }
 }
