@@ -2,13 +2,12 @@
 
 Depending on configuration, this add-on requires webserver URL rewrite support!
 
-Allows SVG (Scalable Vector Graphics) images to be stored as templates.
+Allows SVG (Scalable Vector Graphics) images to be stored as templates. This creates a new svg.php file in the XF root directory.
 
-This defines a svg.php file, and some options to support content redirection.
-
-To include in a template (or css templates INSIDE a style property):
-
+To include in a template (or css templates INSIDE a style property) use:
+```
 {xen:helper svg, 'tempate.svg' }
+```
 
 Under Board information, if "Use Full Friendly URLs" (useFriendlyUrls) is set the URL generated is:
 ```
@@ -19,7 +18,8 @@ Otherwise
 svg.php?svg=<templateName>&style=<style_id>&language=<langauge_id>&d=<style_last_modified>
 ```
 
-For nginx, something like:
+## Nginx URL rewrite config
+
 ```
 location ^~ /data/svg/ {
    access_log off;
