@@ -1,15 +1,51 @@
 <?php
 
+class XenForo_Template_Public_cracker extends XenForo_Template_Public
+{
+    public static function getStyleId()
+    {
+        return XenForo_Template_Public::$_styleId;
+    }
+    public static function getLanguageId()
+    {
+        return XenForo_Template_Abstract::$_languageId;
+    }
+}
+
 class SV_SVGTemplate_Helpers
 {
     static $useFriendlyUrls = null;
     static $boardUrl = null;
 
-    public static function helperSvg($templateName, array $visitorLanguage, array $visitorStyle)
+    public static function helperSvg($templateName, $style_id = null, $language_id = null)
     {
         if (empty($templateName))
         {
             throw new Exception('$templateName is required');
+        }
+
+        if ($language_id === null)
+        {
+            $language_id = XenForo_Template_Public_cracker::getLanguageId();
+        }
+
+        if ($style_id === null)
+        {
+            $style_id = XenForo_Template_Public_cracker::getStyleId();
+        }
+
+        $styles = XenForo_Application::get('styles');
+        if ($style_id && isset($styles[$style_id]))
+        {
+            $style = $styles[$style_id];
+        }
+        else
+        {
+            $style = reset($styles);
+        }
+        if (empty($style))
+        {
+            return $templateName;
         }
 
         $parts = pathinfo($templateName);
@@ -18,7 +54,6 @@ class SV_SVGTemplate_Helpers
             return $templateName;
         }
         $templateName = $parts['filename'];
-
         $templateName = urlencode($templateName);
 
         if (self::$useFriendlyUrls === null)
@@ -29,11 +64,11 @@ class SV_SVGTemplate_Helpers
         }
         if (self::$useFriendlyUrls)
         {
-            $url = "/data/svg/{$visitorStyle['style_id']}/{$visitorLanguage['language_id']}/{$visitorLanguage['text_direction']}/{$visitorStyle['last_modified_date']}/{$templateName}.svg";
+            $url = "/data/svg/{$style['style_id']}/{$language_id}/{$style['last_modified_date']}/{$templateName}.svg";
         }
         else
         {
-            $url = "/svg.php?svg={$templateName}&style={$visitorStyle['style_id']}&language={$visitorLanguage['language_id']}&dir={$visitorLanguage['text_direction']}&d={$visitorStyle['last_modified_date']}";
+            $url = "/svg.php?svg={$templateName}&style={$style['style_id']}&language={$language_id}&d={$style['last_modified_date']}";
         }
 
         return self::$boardUrl . $url;

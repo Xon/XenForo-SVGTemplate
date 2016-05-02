@@ -84,11 +84,6 @@ class SV_SVGTemplate_SvgOutput
         {
             $this->_inputModifiedDate = intval($input['d']);
         }
-
-        if (!empty($input['dir']) && is_string($input['dir']) && strtoupper($input['dir']) == 'RTL')
-        {
-            $this->_textDirection = 'RTL';
-        }
     }
 
     public function handleIfModifiedSinceHeader(array $server)
@@ -245,6 +240,7 @@ class SV_SVGTemplate_SvgOutput
         }
 
         $output = $template->render();
+        $output = self::translateSvgStyleProperties($output);
 
         if ($withDebug)
         {
@@ -311,6 +307,18 @@ class SV_SVGTemplate_SvgOutput
         {
             return '';
         }
+    }
+
+    public static function translateSvgStyleProperties($output)
+    {
+        $output = preg_replace_callback("/{xen\:helper\s+svg\s*\,\s*'([^']+)'\s*}/siUx", array('self', '_handleSvgHelperReplacement'), $output);
+
+        return $output;
+    }
+
+    public static function _handleSvgHelperReplacement(array $match)
+    {
+         return SV_SVGTemplate_Helpers::helperSvg($match[1]);
     }
 
     /**
