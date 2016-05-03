@@ -18,6 +18,13 @@ Otherwise
 svg.php?svg=<templateName>&style=<style_id>&language=<langauge_id>&d=<style_last_modified>
 ```
 
+
+## Enable Template helper to work inside style properties in templates (which are no CSS/SVG)
+
+This is disabled by default.
+
+Under performance Options check "General SVG Template Style Properties "
+
 ## Nginx URL rewrite config
 
 ```
