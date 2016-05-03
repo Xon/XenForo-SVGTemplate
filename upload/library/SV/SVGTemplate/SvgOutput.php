@@ -159,6 +159,7 @@ class SV_SVGTemplate_SvgOutput
         XenForo_Template_Helper_Core::setStyleProperties(XenForo_Application::mapMerge($defaultProperties, $properties), false);
         XenForo_Template_Public::setStyleId($this->_styleId);
         XenForo_Template_Abstract::setLanguageId($this->_languageId);
+        SV_SVGTemplate_Listener::injectStylePropertyBits();
     }
 
     public function getCacheId()
@@ -240,7 +241,6 @@ class SV_SVGTemplate_SvgOutput
         }
 
         $output = $template->render();
-        $output = self::translateSvgStyleProperties($output);
 
         if ($withDebug)
         {
@@ -307,18 +307,6 @@ class SV_SVGTemplate_SvgOutput
         {
             return '';
         }
-    }
-
-    public static function translateSvgStyleProperties($output)
-    {
-        $output = preg_replace_callback("/{xen\:helper\s+svg\s*\,\s*'([^']+)'\s*}/siUx", array('self', '_handleSvgHelperReplacement'), $output);
-
-        return $output;
-    }
-
-    public static function _handleSvgHelperReplacement(array $match)
-    {
-         return SV_SVGTemplate_Helpers::helperSvg($match[1]);
     }
 
     /**
