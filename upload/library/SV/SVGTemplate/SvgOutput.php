@@ -169,7 +169,6 @@ class SV_SVGTemplate_SvgOutput
             'language=' . $this->_languageId .
             'svg=' . $this->_svgRequested .
             'd=' . $this->_inputModifiedDate .
-            'dir=' . $this->_textDirection .
             (XenForo_Application::debugMode() ? 'debug' : '')
             );
     }
