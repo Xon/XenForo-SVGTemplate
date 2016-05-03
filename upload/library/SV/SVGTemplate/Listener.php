@@ -10,18 +10,20 @@ class styleProps extends XenForo_Template_Helper_Core
 
 class SV_SVGTemplate_Listener
 {
+    static $changesDetected = true;
     public static function injectStylePropertyBits()
     {
         $properties = styleProps::getStyleProperties();
-        $changes = false;
+        $changes = true;
         foreach($properties as $key => &$property)
         {
             if (is_array($property))
             {
                 foreach($property as $key2 => &$component)
                 {
+                    self::$changesDetected = false;
                     $data = preg_replace_callback("/{xen\:helper\s+svg\s*\,\s*'([^']+)'\s*}/siUx", array(__class__, '_handleSvgHelperReplacement'), $component);
-                    if ($data != $component)
+                    if ($data !== null && self::$changesDetected)
                     {
                         $changes = true;
                         $component = $data;
@@ -30,13 +32,13 @@ class SV_SVGTemplate_Listener
             }
             else
             {
+                self::$changesDetected = false;
                 $data = preg_replace_callback("/{xen\:helper\s+svg\s*\,\s*'([^']+)'\s*}/siUx", array(__class__, '_handleSvgHelperReplacement'), $property);
-                if ($data != $property)
+                if ($data !== null && self::$changesDetected)
                 {
                     $changes = true;
                     $property = $data;
                 }
-
             }
         }
         if($changes)
@@ -47,7 +49,9 @@ class SV_SVGTemplate_Listener
 
     public static function _handleSvgHelperReplacement(array $match)
     {
-         return SV_SVGTemplate_Helpers::helperSvg($match[1]);
+        $output = SV_SVGTemplate_Helpers::helperSvg($match[1]);
+        self::$changesDetected = ($output != $match[1])
+        return $output;
     }
 
     public static function init(XenForo_Dependencies_Abstract $dependencies, array $data)
