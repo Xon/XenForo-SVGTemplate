@@ -24,12 +24,12 @@ class SV_SVGTemplate_Helpers
             throw new Exception('$templateName is required');
         }
 
-        if ($language_id === null)
+        if ($language_id === null || !is_numeric($language_id))
         {
             $language_id = SV_SVGTemplate_TemplateCracker::getLanguageId();
         }
 
-        if ($style_id === null)
+        if ($style_id === null || !is_numeric($style_id))
         {
             $style_id = SV_SVGTemplate_TemplateCracker::getStyleId();
         }

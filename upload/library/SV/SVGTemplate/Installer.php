@@ -16,6 +16,8 @@ class SV_SVGTemplate_Installer
         }
         $version = isset($existingAddOn['version_id']) ? $existingAddOn['version_id'] : 0;
 
+        XenForo_Application::defer('SV_SVGTemplate_Deferred_InstallHelper', array());
+
         return true;
     }
 }
