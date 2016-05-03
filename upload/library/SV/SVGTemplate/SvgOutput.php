@@ -159,7 +159,7 @@ class SV_SVGTemplate_SvgOutput
         XenForo_Template_Helper_Core::setStyleProperties(XenForo_Application::mapMerge($defaultProperties, $properties), false);
         XenForo_Template_Public::setStyleId($this->_styleId);
         XenForo_Template_Abstract::setLanguageId($this->_languageId);
-        SV_SVGTemplate_Listener::injectStylePropertyBits();
+        SV_SVGTemplate_StyleProperties::injectStylePropertyBits();
     }
 
     public function getCacheId()

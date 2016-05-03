@@ -16,7 +16,7 @@ class SV_SVGTemplate_ViewRendererWrapper extends XenForo_ViewRenderer_Abstract
 
     public function renderView($viewName, array $params = array(), $templateName = '', XenForo_ControllerResponse_View $subView = null)
     {
-        SV_SVGTemplate_Listener::injectStylePropertyBits();
+        SV_SVGTemplate_StyleProperties::injectStylePropertyBits();
         return $this->viewRender->renderView($viewName, $params, $templateName, $subView);
     }
 

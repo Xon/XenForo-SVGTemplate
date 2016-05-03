@@ -1,6 +1,6 @@
 <?php
 
-class XenForo_Template_Public_cracker extends XenForo_Template_Public
+class SV_SVGTemplate_TemplateCracker extends XenForo_Template_Public
 {
     public static function getStyleId()
     {
@@ -26,12 +26,12 @@ class SV_SVGTemplate_Helpers
 
         if ($language_id === null)
         {
-            $language_id = XenForo_Template_Public_cracker::getLanguageId();
+            $language_id = SV_SVGTemplate_TemplateCracker::getLanguageId();
         }
 
         if ($style_id === null)
         {
-            $style_id = XenForo_Template_Public_cracker::getStyleId();
+            $style_id = SV_SVGTemplate_TemplateCracker::getStyleId();
         }
 
         $styles = XenForo_Application::get('styles');
