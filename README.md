@@ -27,3 +27,8 @@ location ^~ /data/svg/ {
    return 403;
 }
 ```
+
+## Requirements
+
+- PHP 5.5 or newer
+- XenForo 1.5.3 or newer
