@@ -65,16 +65,6 @@ class SV_SVGTemplate_ViewRendererWrapper extends XenForo_ViewRenderer_Abstract
         return $this->viewRender->createTemplateObject($templateName, $params);
     }
 
-    public function createTemplateObject($templateName, array $params = array())
-    {
-        return $this->viewRender->createTemplateObject($templateName, $params);
-    }
-
-    public function createTemplateObject($templateName)
-    {
-        return $this->viewRender->createTemplateObject($templateName);
-    }
-
     public function getNeedsContainer()
     {
         return $this->viewRender->getNeedsContainer();

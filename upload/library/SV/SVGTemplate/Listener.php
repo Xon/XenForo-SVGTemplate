@@ -50,7 +50,7 @@ class SV_SVGTemplate_Listener
     public static function _handleSvgHelperReplacement(array $match)
     {
         $output = SV_SVGTemplate_Helpers::helperSvg($match[1]);
-        self::$changesDetected = ($output != $match[1])
+        self::$changesDetected = ($output != $match[1]);
         return $output;
     }
 
